@@ -8,10 +8,10 @@ class ToDoList extends Component {
   }
 
   render() {
+
     var items = this.props.itemsList.map((item)=>{
-      return <li>{item}</li>
+      return <li className="list-group-item" key={item.id}>{item.value}</li>
     })
-    console.log('ICI', items);
     return (
       <ul className='todo-list'>
         {items}

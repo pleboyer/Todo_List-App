@@ -13,12 +13,14 @@ class App extends Component {
 
   addItem(todoItem) {
     console.log('Should print todoItem : ', todoItem);
+    var newItem = {'value':todoItem.newItem, 'id': new Date().getTime()}
     this.setState({
-      itemsList: [...this.state.itemsList, todoItem.newItem]
+      itemsList: [...this.state.itemsList, newItem]
     });
   }
 
   render() {
+    console.log('DATE', this.state.itemsList)
     return (
       <div className="App">
         <ToDoInput addItem = {this.addItem}/>
