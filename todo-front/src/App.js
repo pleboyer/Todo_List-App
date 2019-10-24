@@ -8,6 +8,7 @@ class App extends Component {
   constructor (props) {
       super(props);
       this.addItem = this.addItem.bind(this);
+      this.deleteItem = this.deleteItem.bind(this);
       this.state = {itemsList: []};
   }
 
@@ -19,12 +20,30 @@ class App extends Component {
     });
   }
 
+  deleteItem(todoItem){
+    console.log('Je supprime', todoItem)
+    var deleteItem = todoItem.deleteItem;
+    console.log('this', this)
+    console.log('this.state', this.state)
+    var newItemList = this.state.itemsList;
+    console.log('newItemList', newItemList)
+    this.state.itemsList.map((item, index)=>{
+      if(item.id===deleteItem){
+        newItemList.splice(index,1);
+      }
+      return newItemList
+    })
+    this.setState({
+      itemsList: newItemList
+    })
+  }
+
   render() {
-    console.log('DATE', this.state.itemsList)
+    console.log('DATE', this.state.itemsList);
     return (
       <div className="App">
         <ToDoInput addItem = {this.addItem}/>
-        <ToDoList itemsList={this.state.itemsList}/>
+        <ToDoList itemsList={this.state.itemsList} deleteItem={this.deleteItem}/>
       </div>
     )
   }
