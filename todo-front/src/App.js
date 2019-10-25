@@ -52,10 +52,17 @@ class App extends Component {
 
   render() {
     console.log('ItemsList', this.state.itemsList)
+    var pView={};
+    if(this.state.itemsList.length ===0){
+      pView.display='none';
+    }
+
     return (
       <div className="App container">
+        <h1>TO DO APP</h1>
         <ToDoInput addItem = {this.addItem}/>
         <ToDoList itemsList={this.state.itemsList} deleteItem={this.deleteItem} editItem={this.editItem}/>
+        <br/><p style={pView}>Double click on the item to edit</p>
       </div>
     )
   }
