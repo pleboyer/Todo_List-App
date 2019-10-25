@@ -9,7 +9,7 @@ class App extends Component {
       super(props);
       this.addItem = this.addItem.bind(this);
       this.deleteItem = this.deleteItem.bind(this);
-      this.updateItem = this.updateItem.bind(this);
+      this.editItem = this.editItem.bind(this);
       this.state = {itemsList: []};
   }
 
@@ -35,8 +35,19 @@ class App extends Component {
     })
   }
 
-  updateItem(todoItem){
+  editItem(todoItem){
     console.log('La', todoItem)
+    var updateItem = todoItem.updateItem;
+    var newItemList = this.state.itemsList;
+    this.state.itemsList.map((item, index)=>{
+      if(item.id===updateItem.id){
+        newItemList.splice(index,1,updateItem);
+      }
+      return newItemList
+    })
+    this.setState({
+      itemsList: newItemList
+    })
   }
 
   render() {

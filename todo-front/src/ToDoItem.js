@@ -30,16 +30,22 @@ class ToDoItem extends Component {
 
   onKeyDownUpdate(event){
     if(event.keyCode === 13){
-      //var updateItem = this.props.index
-      //this.props.edit({updateItem})
+      var updateItem = {
+        value: this.state.text,
+        id: this.props.index
+      }
+      this.props.edit({updateItem})
       this.setState({editing:false})
     }
   }
 
   onClickUpdate(event){
-    var updateItem = this.props.index
-    this.setState({editing:false})
+    var updateItem = {
+      value: this.state.text,
+      id: this.props.index
+    }
     this.props.edit({updateItem})
+    this.setState({editing:false})
   }
 
   render() {
