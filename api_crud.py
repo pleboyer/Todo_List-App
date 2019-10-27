@@ -18,7 +18,7 @@ todos = db.todo
 
 app = Flask(__name__)
 
-@app.route("/", methods=['GET'])
+@app.route("/todos/", methods=['GET'])
 def get_all_item():
 	todo_list = todos.find()
 	todo_content = []
@@ -28,7 +28,7 @@ def get_all_item():
 		print("todo_content", todo_content)
 	return jsonify(todo_content)
 
-@app.route("/", methods=['POST'])
+@app.route("/todos/", methods=['POST'])
 def post_item():
 	data = json.loads(request.data)
 
@@ -44,15 +44,15 @@ def post_item():
 				})
 
 #TODO
-@app.route("/<int:item_id>", methods=['PUT'])
+@app.route("/todos/<int:item_id>", methods=['PUT'])
 def put_item(item_id):
 	data = json.loads(request.data)
-	todo_update = todos.update_one({ 'id': str(item_id) },{'$set':{'value': data['value']}})
+	todo_update = todos.update_one({ 'id': item_id },{'$set':{'value': data['value']}})
 	return dumps({'message': 'SUCCESS'})
 
-@app.route("/<int:item_id>", methods=['DELETE'])
+@app.route("/todos/<int:item_id>", methods=['DELETE'])
 def delete_item(item_id):
-	todo_delete = todos.remove({ 'id': str(item_id) })
+	todo_delete = todos.remove({ 'id': item_id })
 	return dumps({'message': 'SUCCESS'})
 
 if __name__ == '__main__':
