@@ -47,18 +47,12 @@ def post_item():
 @app.route("/<int:item_id>", methods=['PUT'])
 def put_item(item_id):
 	data = json.loads(request.data)
-
-	todo_line = {
-		'value': data['value'],
-		'id':data['id']
-	}
-
 	todo_update = todos.update_one({ 'id': str(item_id) },{'$set':{'value': data['value']}})
-	return return dumps({'message': 'SUCCESS'})
+	return dumps({'message': 'SUCCESS'})
 
 @app.route("/<int:item_id>", methods=['DELETE'])
 def delete_item(item_id):
-	todo_delete = todos.find({ id: item_id }).remove()
+	todo_delete = todos.remove({ 'id': str(item_id) })
 	return dumps({'message': 'SUCCESS'})
 
 if __name__ == '__main__':
