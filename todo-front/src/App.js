@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import ToDoInput from './ToDoInput'
 import ToDoList from './ToDoList'
-import {getItem, postItem} from './API'
+import {getItemAPI, postItemAPI, deleteItemAPI} from './API'
 
 class App extends Component {
 
@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    getItem()
+    getItemAPI()
     .then(listItem => {
       this.setState({
         itemsList: listItem
@@ -30,22 +30,14 @@ class App extends Component {
       'value':todoItem.newItem,
       'id': new Date().getTime()
     };
-    postItem(newItem)
+    postItemAPI(newItem)
     .then(this.componentDidMount())
   }
 
   deleteItem(todoItem){
     var deleteItem = todoItem.deleteItem;
-    var newItemList = this.state.itemsList;
-    this.state.itemsList.map((item, index)=>{
-      if(item.id===deleteItem){
-        newItemList.splice(index,1);
-      }
-      return newItemList
-    })
-    this.setState({
-      itemsList: newItemList
-    })
+    deleteItemAPI(deleteItem)
+    .then(this.componentDidMount())
   }
 
   editItem(todoItem){

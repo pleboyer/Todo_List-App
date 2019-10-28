@@ -1,4 +1,4 @@
-export function getItem() {
+export function getItemAPI() {
   return fetch('/todos/',{method: 'get'})
   .then(res => res.json())          // convert to plain text
   .then(function(json) {
@@ -12,7 +12,7 @@ export function getItem() {
   .catch((error) => console.error(error));
 }
 
-export function postItem(post_item) {
+export function postItemAPI(post_item) {
   return fetch('/todos/',
   {
     method: 'post',
@@ -24,5 +24,15 @@ export function postItem(post_item) {
   })
   .then(res => res.text())          // convert to plain text
   .then(text => console.log(text))  // then log it out
+  .catch((error) => console.error(error));
+}
+
+export function deleteItemAPI(id) {
+  return fetch('/todos/'+id,
+  {
+    method: 'delete'
+  })
+  .then(res => res.json())          // convert to plain text
+  .then(json => console.log(json))  // then log it out
   .catch((error) => console.error(error));
 }
