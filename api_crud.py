@@ -9,7 +9,7 @@ from flask import Flask
 from flask import request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient
-from bson.json_util import dumps
+from bson.json_util import dumps, loads
 import json
 
 client = MongoClient('localhost:27017')
@@ -17,31 +17,43 @@ db = client.ToDo
 todos = db.todo
 
 app = Flask(__name__)
+cors = CORS(app)
 
 @app.route("/todos/", methods=['GET'])
 def get_all_item():
 	todo_list = todos.find()
 	todo_content = []
 	for element in todo_list:
-		print("element", element)
 		todo_content.append(dumps(element))
-		print("todo_content", todo_content)
 	return jsonify(todo_content)
 
 @app.route("/todos/", methods=['POST'])
 def post_item():
-	data = json.loads(request.data)
+	response = request.data
+	decode  = response.decode('utf-8')
+	data = json.loads(decode)
+	'''print('-----------------------------')
+	print('REQUEST', request)
+	print('-----------------------------')
+	print('TYPE', type(request))
+	print('-----------------------------')
+	print('REQUEST DATA', request.data)
+	print('-----------------------------')
+	print('TYPE', type(request.data))'''
+	print('-----------------------------')
+	print('DECODE', json.loads(decode))
+	print('-----------------------------')
+	print('TYPE', type(json.loads(decode)))
+	print('-----------------------------')
 
-	todo_line = {
+
+	'''todo_line = {
 		'value': data['value'],
 		'id':data['id']
-	}
+	}'''
 
-	result = todos.insert(todo_line)
-	print('One post: {0}'.format(result))
-	return dumps({
-				'message': 'SUCCESS'
-				})
+	result = todos.insert_one(data)
+	return dumps({'message': 'SUCCESS'})
 
 #TODO
 @app.route("/todos/<int:item_id>", methods=['PUT'])
@@ -56,4 +68,4 @@ def delete_item(item_id):
 	return dumps({'message': 'SUCCESS'})
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

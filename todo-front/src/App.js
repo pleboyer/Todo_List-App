@@ -15,19 +15,27 @@ class App extends Component {
 
   addItem(todoItem) {
     console.log('Should print todoItem : ', todoItem);
-    var newItem = {'value':todoItem.newItem, 'id': new Date().getTime()}
-    fetch('http://127.0.0.1:5000/',
+    var newItem = {
+      'value':todoItem.newItem,
+      'id': new Date().getTime()
+    };
+    fetch('/todos/',
     {
       method: 'post',
       headers: {
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        'Accept': 'application/json'
       },
-      body: newItem
+      body: JSON.stringify(newItem)
     })
-      .then((response) => console.log('RESPONSE',response.json()))
-      .catch((error) => console.error(error));
+    .then(res => res.text())          // convert to plain text
+    .then(text => console.log(text))  // then log it out
+    .catch((error) => console.error(error));
     this.setState({
-      itemsList: [...this.state.itemsList, newItem]
+      itemsList: [...this.state.itemsList, {
+        'value':todoItem.newItem,
+        'id': new Date().getTime()
+      }]
     });
   }
 
