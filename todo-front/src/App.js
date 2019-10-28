@@ -24,7 +24,6 @@ class App extends Component {
   }
 
   addItem(todoItem) {
-    console.log('Should print todoItem : ', todoItem);
     var newItem = {
       'value':todoItem.newItem,
       'id': new Date().getTime()
@@ -40,7 +39,6 @@ class App extends Component {
   }
 
   editItem(todoItem){
-    console.log('La', todoItem.updateItem)
     var updateItem = todoItem.updateItem;
     putItemAPI(updateItem.id, updateItem.value)
     .then(this.componentDidMount())

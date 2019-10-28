@@ -6,7 +6,6 @@ export function getItemAPI() {
     for(let i=0; i<json.length;i++){
       listItemJSON.push(JSON.parse(json[i]))
     }
-    console.log(listItemJSON)
     return listItemJSON
   })
   .catch((error) => console.error(error));
