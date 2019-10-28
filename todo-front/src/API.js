@@ -11,3 +11,18 @@ export function getItem() {
   })
   .catch((error) => console.error(error));
 }
+
+export function postItem(post_item) {
+  return fetch('/todos/',
+  {
+    method: 'post',
+    headers: {
+      'Content-Type':'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(post_item)
+  })
+  .then(res => res.text())          // convert to plain text
+  .then(text => console.log(text))  // then log it out
+  .catch((error) => console.error(error));
+}

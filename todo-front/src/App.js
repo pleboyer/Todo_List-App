@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import ToDoInput from './ToDoInput'
 import ToDoList from './ToDoList'
-import {getItem} from './API'
+import {getItem, postItem} from './API'
 
 class App extends Component {
 
@@ -26,28 +26,12 @@ class App extends Component {
 
   addItem(todoItem) {
     console.log('Should print todoItem : ', todoItem);
-    /*var newItem = {
+    var newItem = {
       'value':todoItem.newItem,
       'id': new Date().getTime()
     };
-    /*fetch('/todos/',
-    {
-      method: 'post',
-      headers: {
-        'Content-Type':'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(newItem)
-    })
-    .then(res => res.text())          // convert to plain text
-    .then(text => console.log(text))  // then log it out
-    .catch((error) => console.error(error));*/
-    /*this.setState({
-      itemsList: [...this.state.itemsList, {
-        'value':todoItem.newItem,
-        'id': new Date().getTime()
-      }]
-    });*/
+    postItem(newItem)
+    .then(this.componentDidMount())
   }
 
   deleteItem(todoItem){
