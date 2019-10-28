@@ -32,37 +32,14 @@ def post_item():
 	response = request.data
 	decode  = response.decode('utf-8')
 	data = json.loads(decode)
-	'''print('-----------------------------')
-	print('REQUEST', request)
-	print('-----------------------------')
-	print('TYPE', type(request))
-	print('-----------------------------')
-	print('REQUEST DATA', request.data)
-	print('-----------------------------')
-	print('TYPE', type(request.data))'''
-	print('-----------------------------')
-	print('DECODE', json.loads(decode))
-	print('-----------------------------')
-	print('TYPE', type(json.loads(decode)))
-	print('-----------------------------')
-
-
-	'''todo_line = {
-		'value': data['value'],
-		'id':data['id']
-	}'''
-
 	result = todos.insert_one(data)
 	return dumps({'message': 'SUCCESS'})
 
-#TODO
 @app.route("/todos/<int:item_id>", methods=['PUT'])
 def put_item(item_id):
 	response = request.data
 	decode  = response.decode('utf-8')
 	data = json.loads(decode)
-	print('UPDATE', data)
-	print('UPDATE', type(data))
 	todo_update = todos.update_one({ 'id': item_id },{'$set':{'value': data}})
 	return dumps({'message': 'SUCCESS'})
 

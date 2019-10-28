@@ -32,8 +32,8 @@ export function deleteItemAPI(id) {
   {
     method: 'delete'
   })
-  .then(res => res.json())          // convert to plain text
-  .then(json => console.log(json))  // then log it out
+  .then(res => res.text())          // convert to plain text
+  .then(text => console.log(text))  // then log it out
   .catch((error) => console.error(error));
 }
 

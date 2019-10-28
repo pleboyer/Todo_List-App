@@ -3,7 +3,6 @@ import ToDoItem from './ToDoItem'
 
 class ToDoList extends Component {
   render(){
-    console.log('ICIIIIII', this.props.itemsList)
     var items = this.props.itemsList.map((item)=>{
       return <ToDoItem ref="itemId" key={item.id} value={item.value} index={item.id} delete={this.props.deleteItem} edit={this.props.editItem}/>
     })

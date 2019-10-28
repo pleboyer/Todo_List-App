@@ -11,7 +11,6 @@ class App extends Component {
       this.addItem = this.addItem.bind(this);
       this.deleteItem = this.deleteItem.bind(this);
       this.editItem = this.editItem.bind(this);
-      //this.getListItem = this.getListItem.bind(this);
       this.state = {itemsList: []};
   }
 
@@ -45,20 +44,9 @@ class App extends Component {
     var updateItem = todoItem.updateItem;
     putItemAPI(updateItem.id, updateItem.value)
     .then(this.componentDidMount())
-    /*var newItemList = this.state.itemsList;
-    this.state.itemsList.map((item, index)=>{
-      if(item.id===updateItem.id){
-        newItemList.splice(index,1,updateItem);
-      }
-      return newItemList
-    })
-    this.setState({
-      itemsList: newItemList
-    })*/
   }
 
   render() {
-    console.log('ItemsList', this.state.itemsList)
     var pView={};
     if(this.state.itemsList.length ===0){
       pView.display='none';
