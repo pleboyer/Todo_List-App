@@ -58,8 +58,12 @@ def post_item():
 #TODO
 @app.route("/todos/<int:item_id>", methods=['PUT'])
 def put_item(item_id):
-	data = json.loads(request.data)
-	todo_update = todos.update_one({ 'id': item_id },{'$set':{'value': data['value']}})
+	response = request.data
+	decode  = response.decode('utf-8')
+	data = json.loads(decode)
+	print('UPDATE', data)
+	print('UPDATE', type(data))
+	todo_update = todos.update_one({ 'id': item_id },{'$set':{'value': data}})
 	return dumps({'message': 'SUCCESS'})
 
 @app.route("/todos/<int:item_id>", methods=['DELETE'])

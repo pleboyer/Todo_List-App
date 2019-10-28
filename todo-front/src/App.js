@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import ToDoInput from './ToDoInput'
 import ToDoList from './ToDoList'
-import {getItemAPI, postItemAPI, deleteItemAPI} from './API'
+import {getItemAPI, postItemAPI, deleteItemAPI, putItemAPI} from './API'
 
 class App extends Component {
 
@@ -41,9 +41,11 @@ class App extends Component {
   }
 
   editItem(todoItem){
-    console.log('La', todoItem)
+    console.log('La', todoItem.updateItem)
     var updateItem = todoItem.updateItem;
-    var newItemList = this.state.itemsList;
+    putItemAPI(updateItem.id, updateItem.value)
+    .then(this.componentDidMount())
+    /*var newItemList = this.state.itemsList;
     this.state.itemsList.map((item, index)=>{
       if(item.id===updateItem.id){
         newItemList.splice(index,1,updateItem);
@@ -52,7 +54,7 @@ class App extends Component {
     })
     this.setState({
       itemsList: newItemList
-    })
+    })*/
   }
 
   render() {

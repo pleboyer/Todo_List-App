@@ -36,3 +36,18 @@ export function deleteItemAPI(id) {
   .then(json => console.log(json))  // then log it out
   .catch((error) => console.error(error));
 }
+
+export function putItemAPI(id, put_item) {
+  return fetch('/todos/'+id,
+  {
+    method: 'put',
+    headers: {
+      'Content-Type':'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(put_item)
+  })
+  .then(res => res.text())          // convert to plain text
+  .then(text => console.log(text))  // then log it out
+  .catch((error) => console.error(error));
+}
