@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import ToDoInput from './ToDoInput'
 import ToDoList from './ToDoList'
+import {getItem} from './API'
 
 class App extends Component {
 
@@ -10,16 +11,26 @@ class App extends Component {
       this.addItem = this.addItem.bind(this);
       this.deleteItem = this.deleteItem.bind(this);
       this.editItem = this.editItem.bind(this);
+      //this.getListItem = this.getListItem.bind(this);
       this.state = {itemsList: []};
+  }
+
+  componentDidMount() {
+    getItem()
+    .then(listItem => {
+      this.setState({
+        itemsList: listItem
+      })
+    })
   }
 
   addItem(todoItem) {
     console.log('Should print todoItem : ', todoItem);
-    var newItem = {
+    /*var newItem = {
       'value':todoItem.newItem,
       'id': new Date().getTime()
     };
-    fetch('/todos/',
+    /*fetch('/todos/',
     {
       method: 'post',
       headers: {
@@ -30,13 +41,13 @@ class App extends Component {
     })
     .then(res => res.text())          // convert to plain text
     .then(text => console.log(text))  // then log it out
-    .catch((error) => console.error(error));
-    this.setState({
+    .catch((error) => console.error(error));*/
+    /*this.setState({
       itemsList: [...this.state.itemsList, {
         'value':todoItem.newItem,
         'id': new Date().getTime()
       }]
-    });
+    });*/
   }
 
   deleteItem(todoItem){
