@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import ToDoInput from './ToDoInput'
 import ToDoList from './ToDoList'
+import {getItemAPI, postItemAPI, deleteItemAPI, putItemAPI} from './API'
 
 class App extends Component {
 
@@ -13,45 +14,46 @@ class App extends Component {
       this.state = {itemsList: []};
   }
 
+  componentDidMount() {
+    getItemAPI()
+    .then(listItem => {
+      this.setState({
+        itemsList: listItem
+      })
+    })
+  }
+
+  getItem() {
+    getItemAPI()
+    .then(listItem => {
+        this.setState({
+          itemsList: listItem
+        })
+      })
+  }
+
   addItem(todoItem) {
-    console.log('Should print todoItem : ', todoItem);
-    var newItem = {'value':todoItem.newItem, 'id': new Date().getTime()}
-    this.setState({
-      itemsList: [...this.state.itemsList, newItem]
-    });
+    var newItem = {
+      'value':todoItem.newItem,
+      'id': new Date().getTime()
+    };
+    postItemAPI(newItem)
+    .then(this.getItem())
   }
 
   deleteItem(todoItem){
     var deleteItem = todoItem.deleteItem;
-    var newItemList = this.state.itemsList;
-    this.state.itemsList.map((item, index)=>{
-      if(item.id===deleteItem){
-        newItemList.splice(index,1);
-      }
-      return newItemList
-    })
-    this.setState({
-      itemsList: newItemList
-    })
+    deleteItemAPI(deleteItem)
+    .then(this.getItem())
   }
 
   editItem(todoItem){
-    console.log('La', todoItem)
     var updateItem = todoItem.updateItem;
-    var newItemList = this.state.itemsList;
-    this.state.itemsList.map((item, index)=>{
-      if(item.id===updateItem.id){
-        newItemList.splice(index,1,updateItem);
-      }
-      return newItemList
-    })
-    this.setState({
-      itemsList: newItemList
-    })
+    putItemAPI(updateItem.id, updateItem.value)
+    .then(this.getItem())
   }
 
   render() {
-    console.log('ItemsList', this.state.itemsList)
     var pView={};
     if(this.state.itemsList.length ===0){
       pView.display='none';
