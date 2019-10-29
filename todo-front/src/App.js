@@ -23,25 +23,34 @@ class App extends Component {
     })
   }
 
+  getItem() {
+    getItemAPI()
+    .then(listItem => {
+        this.setState({
+          itemsList: listItem
+        })
+      })
+  }
+
   addItem(todoItem) {
     var newItem = {
       'value':todoItem.newItem,
       'id': new Date().getTime()
     };
     postItemAPI(newItem)
-    .then(this.componentDidMount())
+    .then(this.getItem())
   }
 
   deleteItem(todoItem){
     var deleteItem = todoItem.deleteItem;
     deleteItemAPI(deleteItem)
-    .then(this.componentDidMount())
+    .then(this.getItem())
   }
 
   editItem(todoItem){
     var updateItem = todoItem.updateItem;
     putItemAPI(updateItem.id, updateItem.value)
-    .then(this.componentDidMount())
+    .then(this.getItem())
   }
 
   render() {

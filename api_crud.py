@@ -45,7 +45,7 @@ def put_item(item_id):
 
 @app.route("/todos/<int:item_id>", methods=['DELETE'])
 def delete_item(item_id):
-	todo_delete = todos.remove({ 'id': item_id })
+	todo_delete = todos.delete_one({ 'id': item_id })
 	return dumps({'message': 'SUCCESS'})
 
 if __name__ == '__main__':
